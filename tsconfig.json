@@ -1,0 +1,42 @@
+{
+  "ts-node": {
+    "transpileOnly": true,
+    "files": true,
+    "compilerOptions": {
+      "module": "CommonJS",
+    }
+  },
+  "compilerOptions": {
+    "outDir": "dist",
+    "baseUrl": "src",
+    "target": "es5",
+    "module": "esnext",
+    "jsx": "react-jsx",
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "esnext"
+    ],
+    "moduleResolution": "node",
+    "allowJs": true,
+    "noEmit": false,
+    "strict": true,
+    "allowSyntheticDefaultImports": true,
+    "skipLibCheck": true,
+    "skipDefaultLibCheck": true,
+    "strictNullChecks": true,
+    "noUnusedLocals": false,
+    "noUnusedParameters": true,
+    "removeComments": false,
+    "preserveConstEnums": true,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "incremental": false
+  },
+  "exclude": ["node_modules", "dist"],
+  "include": ["index.d.ts", "**/*.ts", "**/*.tsx", "**/*.js", "**/*.jsx"]
+}

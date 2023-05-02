@@ -1,0 +1,42 @@
+{
+  "name": "mobx-mvvm-todolist-with-cypress-and-parcel",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/RostislavBerezhnoy/mobx-mvvm-todolist-with-cypress-and-parcel.git",
+  "author": "Rostislav Berezhnoy <berezhnoy.rostislav@gmail.com>",
+  "license": "MIT",
+  "scripts": {
+    "start": "parcel public/index.html",
+    "build": "parcel build public/index.html",
+    "lint": "tsc --noEmit && eslint --fix \"**/*.@(js|jsx|ts|tsx)\""
+  },
+  "dependencies": {
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  },
+  "devDependencies": {
+    "@babel/preset-env": "^7.20.2",
+    "@types/node": "18.16.3",
+    "@types/react": "^18.2.0",
+    "@types/react-dom": "^18.2.1",
+    "@typescript-eslint/eslint-plugin": "^5.36.1",
+    "@typescript-eslint/parser": "^5.36.1",
+    "babel-plugin-named-exports-order": "^0.0.2",
+    "eslint": "~8.39.0",
+    "eslint-config-airbnb-typescript": "^17.0.0",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-config-react-app": "^7.0.1",
+    "eslint-plugin-import": "^2.27.5",
+    "eslint-plugin-jsx-a11y": "^6.5.1",
+    "eslint-plugin-optimize-regex": "^1.2.1",
+    "eslint-plugin-prettier": "^4.0.0",
+    "eslint-plugin-promise": "^6.0.0",
+    "eslint-plugin-react": "^7.28.0",
+    "eslint-plugin-react-hooks": "^4.3.0",
+    "eslint-plugin-sonarjs": "^0.19.0",
+    "eslint-plugin-unicorn": "^46.0.0",
+    "parcel-bundler": "^1.12.5",
+    "prettier": "^2.6.2",
+    "typescript": "~5.0.4"
+  }
+}
