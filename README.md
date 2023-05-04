@@ -1,0 +1,1 @@
+# Simple react/typescript todolist app with mobx-mvvm, tailwind css and cypress [in dev]

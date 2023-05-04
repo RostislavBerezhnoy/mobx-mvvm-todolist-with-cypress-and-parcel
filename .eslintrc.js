@@ -45,6 +45,12 @@ module.exports = {
     react: {
       version: '18',
     },
+    'import/resolver': {
+      node: {
+        extensions: ['.js', '.jsx', '.ts', '.tsx'],
+        moduleDirectory: ['node_modules', 'src'],
+      },
+    },
   },
   rules: {
     'prettier/prettier': [
@@ -161,12 +167,7 @@ module.exports = {
     'sonarjs/no-duplicated-branches': 'warn',
     'sonarjs/no-nested-template-literals': 'off',
     'import/prefer-default-export': 'off',
-    'import/no-cycle': [
-      'error',
-      {
-        maxDepth: 1,
-      },
-    ],
+    'import/no-cycle': 'off',
     // 'import/no-relative-parent-imports': 'warn',
     'import/extensions': ['off'],
     'promise/catch-or-return': 'off',
