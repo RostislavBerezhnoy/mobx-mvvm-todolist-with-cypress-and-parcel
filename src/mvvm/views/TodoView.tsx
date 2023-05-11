@@ -1,19 +1,23 @@
 import { observer } from 'mobx-react'
 import { FC } from 'react'
 import TodoViewModel from 'mvvm/view-models/TodoViewModel'
+import { TodoItem } from 'components/TodoItem'
+import { AddTodoItem } from 'components/AddTodoItem'
+import { TodoHeader } from 'components/TodoHeader'
+import { TodoCard } from 'components/TodoCard'
 
 export const TodoView: FC<{ todoViewModel: TodoViewModel }> = observer(
   ({ todoViewModel: { todos, isTodosLoading } }) => {
     if (isTodosLoading) return <p>Loading...</p>
 
     return (
-      <div>
+      <TodoCard>
+        <TodoHeader title='Todo list' />
         {todos.map(todo => (
-          <div key={todo.id}>
-            <p>{todo.text}</p>
-          </div>
+          <TodoItem key={todo.id} {...todo} />
         ))}
-      </div>
+        <AddTodoItem />
+      </TodoCard>
     )
   },
 )
