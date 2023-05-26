@@ -1,22 +1,56 @@
-import { observer } from 'mobx-react'
-import { FC } from 'react'
+import { FC, useEffect } from 'react'
+import { observer } from 'mobx-react-lite'
+import toast from 'react-hot-toast'
 import TodoViewModel from 'mvvm/view-models/TodoViewModel'
 import { TodoItem } from 'components/TodoItem'
 import { AddTodoItem } from 'components/AddTodoItem'
 import { TodoHeader } from 'components/TodoHeader'
 import { TodoCard } from 'components/TodoCard'
+import { Loader } from 'components/Loader'
 
 export const TodoView: FC<{ todoViewModel: TodoViewModel }> = observer(
-  ({ todoViewModel: { todos, isTodosLoading } }) => {
-    if (isTodosLoading) return <p>Loading...</p>
+  ({
+    todoViewModel: {
+      todos,
+      isTodosLoading,
+      isTodosError,
+      todosError = '',
+      addTodo,
+      isAddTodoError,
+      addTodoError = '',
+      updateTodo,
+      isUpdateTodoError,
+      updateTodoError = '',
+      removeTodo,
+      isRemoveTodoError,
+      removeTodoError = '',
+    },
+  }) => {
+    useEffect(() => {
+      if (isTodosError) toast.error(todosError)
+    }, [isTodosError, todosError])
+
+    useEffect(() => {
+      if (isAddTodoError) toast.error(addTodoError)
+    }, [isAddTodoError, addTodoError])
+
+    useEffect(() => {
+      if (isUpdateTodoError) toast.error(updateTodoError)
+    }, [isUpdateTodoError, updateTodoError])
+
+    useEffect(() => {
+      if (isRemoveTodoError) toast.error(removeTodoError)
+    }, [isRemoveTodoError, removeTodoError])
+
+    if (isTodosLoading && todos.length === 0) return <Loader />
 
     return (
       <TodoCard>
-        <TodoHeader title='Todo list' />
+        <TodoHeader title='Async Todo list' />
         {todos.map(todo => (
-          <TodoItem key={todo.id} {...todo} />
+          <TodoItem key={todo.id} {...todo} onStatusChange={updateTodo} onDelete={removeTodo} />
         ))}
-        <AddTodoItem />
+        <AddTodoItem onAdd={addTodo} />
       </TodoCard>
     )
   },

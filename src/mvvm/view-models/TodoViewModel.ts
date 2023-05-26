@@ -6,53 +6,147 @@ import { Todo, TODO_STATUS } from 'types/todo'
 class TodoViewModel {
   rootStore: RootStore
 
+  //todos
   todos: Todo[] = []
 
   isTodosLoading = false
 
+  isTodoSuccess = false
+
+  isTodosError = false
+
+  todosError = undefined
+
+  //add todo
   isAddTodoLoading = false
 
+  isAddTodoSuccess = false
+
+  isAddTodoError = false
+
+  addTodoError = undefined
+
+  //update todo
+  isUpdateTodoLoading = false
+
+  isUpdateTodoSuccess = false
+
+  isUpdateTodoError = false
+
+  updateTodoError = undefined
+
+  //remove todo
   isRemoveTodoLoading = false
+
+  isRemoveTodoSuccess = false
+
+  isRemoveTodoError = false
+
+  removeTodoError = undefined
 
   constructor(rootStore: RootStore) {
     makeAutoObservable(this)
     this.rootStore = rootStore
-    void this.loadTodos()
+    void this.fetchTodos()
   }
 
-  async loadTodos() {
-    this.isTodosLoading = true
-    const { data } = await api.get('/todos')
+  fetchTodos = async () => {
     runInAction(() => {
-      this.todos = data
-      this.isTodosLoading = false
+      this.isTodosLoading = true
+      this.isTodoSuccess = false
+      this.isTodosError = false
+      this.todosError = undefined
     })
+
+    try {
+      const { data } = await api.get('/todos')
+      runInAction(() => {
+        this.todos = data
+        this.isTodosLoading = false
+        this.isTodoSuccess = true
+      })
+    } catch (error: any) {
+      runInAction(() => {
+        this.isTodosLoading = false
+        this.isTodosError = true
+        this.todosError = error.message
+      })
+    }
   }
 
-  async addTodo(todo: Todo) {
-    this.isAddTodoLoading = true
-    const { data } = await api.post('/todos', { body: todo })
+  addTodo = async (value: string) => {
     runInAction(() => {
-      this.todos.push(data)
-      this.isAddTodoLoading = false
+      this.isAddTodoLoading = true
+      this.isAddTodoSuccess = false
+      this.isAddTodoError = false
+      this.addTodoError = undefined
     })
+
+    try {
+      const { data } = await api.post('/todos', { text: value, status: TODO_STATUS.ACTIVE })
+      runInAction(() => {
+        this.todos.push(data)
+        this.isAddTodoLoading = false
+        this.isAddTodoSuccess = true
+      })
+    } catch (error: any) {
+      runInAction(() => {
+        this.isAddTodoLoading = false
+        this.isAddTodoError = true
+        this.addTodoError = error.message
+      })
+    }
   }
 
-  async removeTodo(todo: Todo) {
-    this.isRemoveTodoLoading = true
-    await api.delete(`/todos/${todo.id}`)
+  updateTodo = async (todo: Todo) => {
     runInAction(() => {
-      this.todos.splice(this.todos.indexOf(todo), 1)
-      this.isRemoveTodoLoading = false
+      this.isUpdateTodoLoading = true
+      this.isUpdateTodoSuccess = false
+      this.isUpdateTodoError = false
+      this.updateTodoError = undefined
     })
+
+    try {
+      const { data } = await api.put(`/todos/${todo.id}`, todo)
+      runInAction(() => {
+        let elem = this.todos.find(({ id }) => id === data.id)
+
+        if (elem) elem = data
+
+        this.isUpdateTodoLoading = false
+        this.isUpdateTodoSuccess = true
+      })
+    } catch (error: any) {
+      runInAction(() => {
+        this.isUpdateTodoLoading = false
+        this.isUpdateTodoError = true
+        this.updateTodoError = error.message
+      })
+    }
   }
 
-  get activeTodos() {
-    return this.todos.filter(({ status }) => status === TODO_STATUS.ACTIVE)
-  }
+  removeTodo = async (todo: Todo) => {
+    runInAction(() => {
+      this.isRemoveTodoLoading = true
+      this.isRemoveTodoSuccess = false
+      this.isRemoveTodoError = false
+      this.removeTodoError = undefined
+    })
 
-  get finishedTodos() {
-    return this.todos.filter(({ status }) => status === TODO_STATUS.DONE)
+    try {
+      await api.delete(`/todos/${todo.id}`)
+      runInAction(() => {
+        this.todos.splice(this.todos.indexOf(todo), 1)
+        this.isRemoveTodoLoading = false
+        this.isRemoveTodoSuccess = true
+      })
+    } catch (error: any) {
+      runInAction(() => {
+        this.isRemoveTodoLoading = false
+        this.isRemoveTodoError = true
+        this.removeTodoError = error.message
+      })
+    }
   }
 }
 
