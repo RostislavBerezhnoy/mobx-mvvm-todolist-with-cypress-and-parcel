@@ -1,6 +1,6 @@
 export const CheckIcon = () => (
   <svg
-    className='w-4 h-4 fill-current'
+    className='w-7 h-7 fill-current'
     xmlns='http://www.w3.org/2000/svg'
     viewBox='0 0 20 20'
     fill='currentColor'

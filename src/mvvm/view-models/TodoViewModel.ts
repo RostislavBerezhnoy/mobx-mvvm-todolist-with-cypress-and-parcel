@@ -59,7 +59,7 @@ class TodoViewModel {
     })
 
     try {
-      const { data } = await api.get('/todos')
+      const { data } = await api.get<Todo[]>('/todos')
       runInAction(() => {
         this.todos = data
         this.isTodosLoading = false
@@ -83,7 +83,7 @@ class TodoViewModel {
     })
 
     try {
-      const { data } = await api.post('/todos', { text: value, status: TODO_STATUS.ACTIVE })
+      const { data } = await api.post<Todo>('/todos', { text: value, status: TODO_STATUS.ACTIVE })
       runInAction(() => {
         this.todos.push(data)
         this.isAddTodoLoading = false
@@ -107,11 +107,11 @@ class TodoViewModel {
     })
 
     try {
-      const { data } = await api.put(`/todos/${todo.id}`, todo)
+      const { data } = await api.put<Todo>(`/todos/${todo.id}`, todo)
       runInAction(() => {
-        let elem = this.todos.find(({ id }) => id === data.id)
+        const index = this.todos.findIndex(({ id }) => id === data.id)
 
-        if (elem) elem = data
+        if (index) this.todos[index] = { ...data }
 
         this.isUpdateTodoLoading = false
         this.isUpdateTodoSuccess = true

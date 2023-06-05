@@ -9,7 +9,7 @@ export const AddTodoItem: FC<AddTodoItemProps> = ({ onAdd }) => {
   const [value, setValue] = useState<string>('')
 
   return (
-    <div className='flex flex-row w-full h-8 px-2 mt-5 text-sm font-medium rounded'>
+    <div className='flex flex-row w-full h-8 pl-2 mt-5 text-sm font-medium rounded'>
       <input
         className='flex-grow h-8 mr-4 bg-transparent border-2 border-gray-600 px-2 rounded-md focus:outline-none font-medium'
         type='text'

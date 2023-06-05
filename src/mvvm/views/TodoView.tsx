@@ -48,7 +48,13 @@ export const TodoView: FC<{ todoViewModel: TodoViewModel }> = observer(
       <TodoCard>
         <TodoHeader title='Async Todo list' />
         {todos.map(todo => (
-          <TodoItem key={todo.id} {...todo} onStatusChange={updateTodo} onDelete={removeTodo} />
+          <TodoItem
+            key={todo.id}
+            {...todo}
+            onStatusChange={updateTodo}
+            onDelete={removeTodo}
+            onEdit={updateTodo}
+          />
         ))}
         <AddTodoItem onAdd={addTodo} />
       </TodoCard>
