@@ -11,6 +11,7 @@ module.exports = {
     '**/.next/**',
     '!.storybook',
     '**/dist/**',
+    '**/cypress/**',
   ],
   env: {
     browser: true,

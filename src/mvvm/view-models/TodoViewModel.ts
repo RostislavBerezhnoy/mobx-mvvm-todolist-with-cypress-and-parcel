@@ -125,7 +125,7 @@ class TodoViewModel {
     }
   }
 
-  removeTodo = async (todo: Todo) => {
+  removeTodo = async (id: number) => {
     runInAction(() => {
       this.isRemoveTodoLoading = true
       this.isRemoveTodoSuccess = false
@@ -134,9 +134,12 @@ class TodoViewModel {
     })
 
     try {
-      await api.delete(`/todos/${todo.id}`)
+      await api.delete(`/todos/${id}`)
       runInAction(() => {
-        this.todos.splice(this.todos.indexOf(todo), 1)
+        const index = this.todos.findIndex(todo => todo.id === id)
+
+        if (index > -1) this.todos.splice(index, 1)
+
         this.isRemoveTodoLoading = false
         this.isRemoveTodoSuccess = true
       })

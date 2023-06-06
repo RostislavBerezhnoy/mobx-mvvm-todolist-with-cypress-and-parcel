@@ -6,8 +6,9 @@ import { CheckIcon, CrossIcon, EditIcon, TrashIcon } from 'components/Icons'
 
 export type TodoItemProps = Todo & {
   onStatusChange: (todo: Todo) => void
-  onDelete: (todo: Todo) => void
+  onDelete: (id: number) => void
   onEdit: (todo: Todo) => void
+  disableActions: boolean
 }
 
 export const TodoItem: FC<TodoItemProps> = ({
@@ -17,19 +18,21 @@ export const TodoItem: FC<TodoItemProps> = ({
   onStatusChange,
   onDelete,
   onEdit,
+  disableActions = false,
 }) => {
   const [checked, setChecked] = useState<TODO_STATUS>(status)
   const [edit, setEdit] = useState<boolean>(false)
   const [value, setValue] = useState<string>(text)
 
   return (
-    <div className='flex flex-row items-center justify-between'>
+    <div className='todo-item flex flex-row items-center justify-between'>
       <div className='flex flex-row items-center w-full mr-1 truncate'>
         <input
           id={`task_${id}`}
-          className='hidden'
+          className='todo-status invisible'
           type='checkbox'
           checked={checked === TODO_STATUS.DONE}
+          disabled={disableActions}
           onChange={e => {
             setChecked(STATUS_TYPES.get(e?.target?.checked))
             onStatusChange({ id, text, status: STATUS_TYPES.get(e?.target?.checked) })
@@ -49,6 +52,7 @@ export const TodoItem: FC<TodoItemProps> = ({
               className='ml-4 flex-grow bg-transparent border-2 border-gray-600 px-2 rounded-md focus:outline-none'
               type='text'
               value={value}
+              disabled={disableActions}
               onChange={e => setValue(e?.target?.value)}
             />
           ) : (
@@ -62,6 +66,7 @@ export const TodoItem: FC<TodoItemProps> = ({
           <>
             <button
               className='mx-1 flex justify-center items-center w-8 rounded-full hover:bg-gray-700'
+              disabled={disableActions}
               onClick={() => {
                 onEdit({ id, text: value, status })
                 setEdit(false)
@@ -70,6 +75,7 @@ export const TodoItem: FC<TodoItemProps> = ({
               <CheckIcon />
             </button>
             <button
+              disabled={disableActions}
               className='mx-1 flex justify-center items-center w-8 rounded-full hover:bg-gray-700'
               onClick={() => setEdit(false)}
             >
@@ -78,6 +84,7 @@ export const TodoItem: FC<TodoItemProps> = ({
           </>
         ) : (
           <button
+            disabled={disableActions}
             className='mx-1 flex justify-center items-center w-8 rounded-full hover:bg-gray-700'
             onClick={() => setEdit(true)}
           >
@@ -85,8 +92,9 @@ export const TodoItem: FC<TodoItemProps> = ({
           </button>
         )}
         <button
+          disabled={disableActions}
           className='mx-1 flex justify-center items-center w-8 rounded-full hover:bg-gray-700'
-          onClick={() => onDelete({ id, text, status })}
+          onClick={() => onDelete(id)}
         >
           <TrashIcon />
         </button>

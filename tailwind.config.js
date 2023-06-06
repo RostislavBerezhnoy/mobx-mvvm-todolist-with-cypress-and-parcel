@@ -2,7 +2,12 @@
 module.exports = {
   content: ['./public/*.{html}', './src/**/*.{js,ts,jsx,tsx}'],
   theme: {
-    extend: {},
+    extend: {
+      width: {
+        '500': '500px',
+      },
+    },
   },
+  safelist: ['w-500'],
   plugins: [],
 }

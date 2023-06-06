@@ -16,12 +16,15 @@ export const TodoView: FC<{ todoViewModel: TodoViewModel }> = observer(
       isTodosError,
       todosError = '',
       addTodo,
+      isAddTodoLoading,
       isAddTodoError,
       addTodoError = '',
       updateTodo,
+      isUpdateTodoLoading,
       isUpdateTodoError,
       updateTodoError = '',
       removeTodo,
+      isRemoveTodoLoading,
       isRemoveTodoError,
       removeTodoError = '',
     },
@@ -54,6 +57,7 @@ export const TodoView: FC<{ todoViewModel: TodoViewModel }> = observer(
             onStatusChange={updateTodo}
             onDelete={removeTodo}
             onEdit={updateTodo}
+            disableActions={isAddTodoLoading || isUpdateTodoLoading || isRemoveTodoLoading}
           />
         ))}
         <AddTodoItem onAdd={addTodo} />
