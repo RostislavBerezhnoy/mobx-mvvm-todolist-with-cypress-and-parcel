@@ -1,4 +1,6 @@
-import { FETCH_TIMEOUT, getNewTodoName } from '../support/helpers'
+/* eslint-disable sonarjs/no-duplicate-string */
+
+import { FETCH_TIMEOUT, getNewTodoName } from '../../support/helpers'
 
 describe('mobx mvvm todolist e2e test', () => {
   beforeEach(() => cy.visit('/'))
@@ -8,17 +10,25 @@ describe('mobx mvvm todolist e2e test', () => {
   })
 
   it('should add a new todo item by click', () => {
-    cy.get('.todo-item').its('length').then(intialLength => {
-      cy.createTodo(getNewTodoName(), 'button')
-      cy.get('.todo-item').its('length').should('be.gte', intialLength + 1)
-    })
+    cy.get('.todo-item')
+      .its('length')
+      .then(intialLength => {
+        cy.createTodo(getNewTodoName(), 'button')
+        cy.get('.todo-item')
+          .its('length')
+          .should('be.gte', intialLength + 1)
+      })
   })
 
   it('should add a new todo item by pressing enter', () => {
-    cy.get('.todo-item').its('length').then(intialLength => {
-      cy.createTodo(getNewTodoName())
-      cy.get('.todo-item').its('length').should('be.gte', intialLength + 1)
-    })
+    cy.get('.todo-item')
+      .its('length')
+      .then(intialLength => {
+        cy.createTodo(getNewTodoName())
+        cy.get('.todo-item')
+          .its('length')
+          .should('be.gte', intialLength + 1)
+      })
   })
 
   it('should clear the text input field when an item has been added', () => {
@@ -37,16 +47,20 @@ describe('mobx mvvm todolist e2e test', () => {
     cy.get('@newTodo').find('.todo-status').check({ force: true })
     cy.get('@newTodo').find('.todo-status').uncheck({ force: true })
     cy.get('@newTodo').find('.todo-status').should('not.be.checked')
-  }) 
+  })
 
   it('should allow me to delete an item', () => {
     cy.createTodo(getNewTodoName()).as('newTodo')
-    cy.get('.todo-item').its('length').then(intialLength => {
-      cy.get('@newTodo').find('.delete-todo').click()
-      cy.wait(FETCH_TIMEOUT)
-      cy.get('.todo-item').its('length').should('be.gte', intialLength - 1)
-      cy.get('@newTodo').should('not.exist')
-    })
+    cy.get('.todo-item')
+      .its('length')
+      .then(intialLength => {
+        cy.get('@newTodo').find('.delete-todo').click()
+        cy.wait(FETCH_TIMEOUT)
+        cy.get('.todo-item')
+          .its('length')
+          .should('be.gte', intialLength - 1)
+        cy.get('@newTodo').should('not.exist')
+      })
   })
 
   it('should make the input field appear after clicking on the edit button', () => {
@@ -63,35 +77,52 @@ describe('mobx mvvm todolist e2e test', () => {
 
   it('should check if the todo span value is equal to the edit todo input field value when I have clicked on the edit button', () => {
     cy.createTodo(getNewTodoName()).as('newTodo')
-    cy.get('@newTodo').find('.todo-text').invoke('text').then((prevText) => {
-      cy.get('@newTodo').find('.edit-todo').click()
-      cy.get('.edit-todo-field').invoke('val').should((newText) => {
-          expect(prevText).to.eq(newText)
-        })
-    })
+    cy.get('@newTodo')
+      .find('.todo-text')
+      .invoke('text')
+      .then(prevText => {
+        cy.get('@newTodo').find('.edit-todo').click()
+        cy.get('.edit-todo-field')
+          .invoke('val')
+          .should(newText => {
+            expect(prevText).to.eq(newText)
+          })
+      })
   })
 
   it('should check if the todo span value is equal to the edit todo input field value when I have typed some text', () => {
     cy.createTodo(getNewTodoName()).as('newTodo')
-    cy.get('@newTodo').find('.todo-text').invoke('text').then((prevText) => {
-      cy.get('@newTodo').find('.edit-todo').click()
-      cy.get('.edit-todo-field').type('-Hello world{enter}')
-      cy.get('.edit-todo-save').click()
-      cy.wait(FETCH_TIMEOUT)
-      cy.get('@newTodo').find('.todo-text').invoke('text').then((newText) => {
-        expect(prevText).not.to.eq(newText)
+    cy.get('@newTodo')
+      .find('.todo-text')
+      .invoke('text')
+      .then(prevText => {
+        cy.get('@newTodo').find('.edit-todo').click()
+        cy.get('.edit-todo-field').type('-Hello world{enter}')
+        cy.get('.edit-todo-save').click()
+        cy.wait(FETCH_TIMEOUT)
+        cy.get('@newTodo')
+          .find('.todo-text')
+          .invoke('text')
+          .then(newText => {
+            expect(prevText).not.to.eq(newText)
+          })
       })
-    })
   })
 
   it('should check if the todo span value has not been changed if I have clicked on the cancel button', () => {
     cy.createTodo(getNewTodoName()).as('newTodo')
-    cy.get('@newTodo').find('.todo-text').invoke('text').then((prevText) => {
-      cy.get('@newTodo').find('.edit-todo').click()
-      cy.get('.edit-todo-cancel').click()
-      cy.get('@newTodo').find('.todo-text').invoke('text').then((newText) => {
-          expect(prevText).to.eq(newText)
-        })
-    })
+    cy.get('@newTodo')
+      .find('.todo-text')
+      .invoke('text')
+      .then(prevText => {
+        cy.get('@newTodo').find('.edit-todo').click()
+        cy.get('.edit-todo-cancel').click()
+        cy.get('@newTodo')
+          .find('.todo-text')
+          .invoke('text')
+          .then(newText => {
+            expect(prevText).to.eq(newText)
+          })
+      })
   })
 })

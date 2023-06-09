@@ -11,11 +11,15 @@ module.exports = {
     '**/.next/**',
     '!.storybook',
     '**/dist/**',
-    '**/cypress/**',
   ],
+  globals: {
+    cy: true,
+    Cypress: true,
+  },
   env: {
     browser: true,
     node: true,
+    'cypress/globals': true,
   },
   plugins: [
     'react',
@@ -26,6 +30,7 @@ module.exports = {
     'unicorn',
     'sonarjs',
     '@typescript-eslint',
+    'cypress',
   ],
   extends: [
     'airbnb-typescript',
@@ -36,6 +41,8 @@ module.exports = {
     'plugin:optimize-regex/recommended',
     'plugin:unicorn/recommended',
     'plugin:sonarjs/recommended',
+    'plugin:react/jsx-runtime',
+    'plugin:cypress/recommended',
     //'plugin:storybook/recommended',
   ],
   parserOptions: {
