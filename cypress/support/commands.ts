@@ -39,8 +39,13 @@ import { FETCH_TIMEOUT } from './helpers'
 //   }
 // }
 
-Cypress.Commands.add('createTodo', (todo) => {
-  cy.get('.add-todo-input').type(`${todo.trim()}{enter}`)
+Cypress.Commands.add('createTodo', (todo, type = 'enter') => {
+  if (type === 'button') {
+    cy.get('.add-todo-input').type(`${todo.trim()}`)
+    cy.get('.add-todo-btn').click()
+  }
+  else cy.get('.add-todo-input').type(`${todo.trim()}{enter}`)
+  
   cy.wait(FETCH_TIMEOUT)
   
   return cy.get('.todo-item').contains('.todo-item', todo.trim())

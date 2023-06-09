@@ -6,29 +6,9 @@
       "status": "done"
     },
     {
-      "text": "New Todo (2023-06-06T16:18:54.671Z)",
+      "text": "New Todo (2023-06-09T13:07:27.177Z)",
       "status": "active",
       "id": 15
-    },
-    {
-      "text": "New Todo (2023-06-06T16:18:56.052Z)",
-      "status": "active",
-      "id": 16
-    },
-    {
-      "text": "New Todo (2023-06-06T16:18:57.275Z)",
-      "status": "active",
-      "id": 17
-    },
-    {
-      "id": 18,
-      "text": "New Todo (2023-06-06T16:18:58.398Z)",
-      "status": "done"
-    },
-    {
-      "id": 19,
-      "text": "New Todo (2023-06-06T16:18:59.798Z)",
-      "status": "active"
     }
   ]
 }

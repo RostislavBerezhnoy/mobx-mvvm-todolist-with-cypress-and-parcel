@@ -49,14 +49,15 @@ export const TodoItem: FC<TodoItemProps> = ({
           <Checkbox />
           {edit ? (
             <input
-              className='ml-4 flex-grow bg-transparent border-2 border-gray-600 px-2 rounded-md focus:outline-none'
+              autoFocus
+              className='edit-todo-field ml-4 flex-grow bg-transparent border-2 border-gray-600 px-2 rounded-md focus:outline-none'
               type='text'
               value={value}
               disabled={disableActions}
               onChange={e => setValue(e?.target?.value)}
             />
           ) : (
-            <span className='ml-4 text-sm'>{text}</span>
+            <span className='todo-text ml-4 text-sm'>{text}</span>
           )}
         </label>
       </div>
@@ -65,7 +66,7 @@ export const TodoItem: FC<TodoItemProps> = ({
         {edit ? (
           <>
             <button
-              className='mx-1 flex justify-center items-center w-8 rounded-full hover:bg-gray-700'
+              className='edit-todo-save mx-1 flex justify-center items-center w-8 rounded-full hover:bg-gray-700'
               disabled={disableActions}
               onClick={() => {
                 onEdit({ id, text: value, status })
@@ -76,7 +77,7 @@ export const TodoItem: FC<TodoItemProps> = ({
             </button>
             <button
               disabled={disableActions}
-              className='mx-1 flex justify-center items-center w-8 rounded-full hover:bg-gray-700'
+              className='edit-todo-cancel mx-1 flex justify-center items-center w-8 rounded-full hover:bg-gray-700'
               onClick={() => setEdit(false)}
             >
               <CrossIcon />
@@ -85,7 +86,7 @@ export const TodoItem: FC<TodoItemProps> = ({
         ) : (
           <button
             disabled={disableActions}
-            className='mx-1 flex justify-center items-center w-8 rounded-full hover:bg-gray-700'
+            className='edit-todo mx-1 flex justify-center items-center w-8 rounded-full hover:bg-gray-700'
             onClick={() => setEdit(true)}
           >
             <EditIcon />
@@ -93,7 +94,7 @@ export const TodoItem: FC<TodoItemProps> = ({
         )}
         <button
           disabled={disableActions}
-          className='mx-1 flex justify-center items-center w-8 rounded-full hover:bg-gray-700'
+          className='delete-todo mx-1 flex justify-center items-center w-8 rounded-full hover:bg-gray-700'
           onClick={() => onDelete(id)}
         >
           <TrashIcon />

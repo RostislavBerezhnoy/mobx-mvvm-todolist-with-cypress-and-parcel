@@ -2,6 +2,6 @@
 
 declare namespace Cypress {
   interface Chainable {
-    createTodo(todo: string): Chainable<any>
+    createTodo(todo: string, type?: 'enter' | 'button'): Chainable<any>
   }
 }

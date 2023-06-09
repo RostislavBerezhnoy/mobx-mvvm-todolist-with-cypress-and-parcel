@@ -38,5 +38,5 @@
     "incremental": false
   },
   "exclude": ["node_modules", "dist"],
-  "include": ["index.d.ts", "**/*.ts", "**/*.tsx", "**/*.js", "**/*.jsx"]
+  "include": ["index.d.ts",  "cypress/**/*.ts", "**/*.ts", "**/*.tsx", "**/*.js", "**/*.jsx"]
 }
