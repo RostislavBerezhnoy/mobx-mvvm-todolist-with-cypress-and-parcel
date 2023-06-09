@@ -12,10 +12,6 @@ module.exports = {
     '!.storybook',
     '**/dist/**',
   ],
-  globals: {
-    cy: true,
-    Cypress: true,
-  },
   env: {
     browser: true,
     node: true,
