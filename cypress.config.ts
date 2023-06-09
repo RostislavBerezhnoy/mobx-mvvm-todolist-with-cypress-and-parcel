@@ -5,7 +5,6 @@ import dotenv from 'dotenv'
 dotenv.config({ path: '.env' })
 
 export default defineConfig({
-  fixturesFolder: false,
   env: {
     apiUrl: process.env.REACT_APP_API_URL,
   },
