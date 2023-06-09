@@ -90,7 +90,7 @@ describe('mobx mvvm todolist e2e test', () => {
       })
   })
 
-  it('should check if the todo span value is equal to the edit todo input field value when I have typed some text', () => {
+  it('should check if the todo span value is not equal to the edit todo input field value when I have typed some text', () => {
     cy.createTodo(getNewTodoName()).as('newTodo')
     cy.get('@newTodo')
       .find('.todo-text')
